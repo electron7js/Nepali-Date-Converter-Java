@@ -1,3 +1,4 @@
+import java.sql.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -115,28 +116,28 @@ public class NepaliDate {
     private static final LocalDate ENGLISH_START_DATE = LocalDate.of(1943, 4, 14);
 
     public static String getNepaliDate(LocalDate englishDate) throws Exception {
-        if (englishDate.isBefore(ENGLISH_START_DATE) ){
+        if (englishDate.isBefore(ENGLISH_START_DATE)) {
             throw new Exception("Only dates after 1943-04-14 are supported");
         }
         long totalDays = ChronoUnit.DAYS.between(ENGLISH_START_DATE, englishDate);
         int bsYear = 2000;
-        int bsMonth = 1; // Assuming months are 1-based
+        int bsMonth = 1;
         int bsDay = 1;
 
         while (totalDays > 0) {
-            int daysInMonth = nepaliMap.get(bsYear)[bsMonth - 1]; // Adjust for 0-based index
+            int daysInMonth = nepaliMap.get(bsYear)[bsMonth - 1];
 
             if (totalDays >= daysInMonth) {
                 totalDays -= daysInMonth;
                 bsMonth++;
 
-                if (bsMonth > 12) { // Adjusted condition
+                if (bsMonth > 12) {
                     bsMonth = 1;
                     bsYear++;
                 }
             } else {
                 bsDay += totalDays;
-                if (bsDay > daysInMonth) { // Prevent overflow
+                if (bsDay > daysInMonth) {
                     bsDay = daysInMonth;
                 }
                 totalDays = 0;
@@ -157,5 +158,46 @@ public class NepaliDate {
             throw new Exception("Invalid date format: " + dateStr);
         }
     }
+
+    public static Integer getDaysBetween(Integer year1, Integer month1, Integer day1,Integer year2, Integer month2, Integer day2) {
+
+        int totalDays = 0;
+        int tempYear=year1;
+        int tempMonth=month1;
+        int tempDay=day1;
+
+        while ((tempYear!=year2) || (tempMonth!=month2) || (tempDay!=day2)) {
+            if (tempYear != year2 || tempMonth != month2) {
+                totalDays += nepaliMap.get(tempYear)[tempMonth-1];
+
+                tempMonth++;
+                
+                if (tempMonth > 12) {
+                    tempMonth = 1;
+                    tempYear++;
+                }
+            }
+            else{
+                if (tempDay<day2){
+                tempDay++;
+                totalDays++;
+                }
+                else if(tempDay>day2){
+                    tempDay--;
+                    totalDays--;
+                }
+            }
+        }
+        
+        return totalDays;
+    }
+
+    public static Date getEnglishDate(Integer year, Integer month, Integer day){
+        Integer totalDays = getDaysBetween( 2000,01,01,year, month, day);
+
+        Long totalMilliseconds = totalDays*86400000L -843177600000L;
+
+        return new Date(totalMilliseconds);
+    } 
 
 }
