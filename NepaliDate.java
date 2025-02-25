@@ -7,9 +7,9 @@ import java.util.Map;
 
 public class NepaliDate {
 
-    Map<Integer, int[]> nepaliMap = new HashMap<Integer, int[]>();
+    private static final Map<Integer, int[]> nepaliMap = new HashMap<Integer, int[]>();
 
-    NepaliDate() {
+    static {
         nepaliMap.put(2000, new int[] { 30, 32, 31, 32, 31, 30, 30, 30, 29, 30, 29, 31 });
         nepaliMap.put(2001, new int[] { 31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30 });
         nepaliMap.put(2002, new int[] { 31, 31, 32, 32, 31, 30, 30, 29, 30, 29, 30, 30 });
@@ -110,34 +110,33 @@ public class NepaliDate {
         nepaliMap.put(2097, new int[] { 31, 31, 31, 32, 31, 31, 29, 30, 30, 29, 30, 30 });
         nepaliMap.put(2098, new int[] { 31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30 });
         nepaliMap.put(2099, new int[] { 31, 31, 32, 32, 31, 30, 30, 29, 30, 29, 30, 30 });
-
     }
 
-    // Date at Baisakh 1, 2002
     private static final LocalDate ENGLISH_START_DATE = LocalDate.of(1943, 4, 14);
 
-    public String getNepaliDate(LocalDate englishDate) {
-
+    public static String getNepaliDate(LocalDate englishDate) throws Exception {
+        if (englishDate.isBefore(ENGLISH_START_DATE) ){
+            throw new Exception("Only dates after 1943-04-14 are supported");
+        }
         long totalDays = ChronoUnit.DAYS.between(ENGLISH_START_DATE, englishDate);
-
         int bsYear = 2000;
-        int bsMonth = 1;
+        int bsMonth = 1; // Assuming months are 1-based
         int bsDay = 1;
 
         while (totalDays > 0) {
-            int daysInMonth = nepaliMap.get(bsYear)[bsMonth - 1];
+            int daysInMonth = nepaliMap.get(bsYear)[bsMonth - 1]; // Adjust for 0-based index
 
             if (totalDays >= daysInMonth) {
                 totalDays -= daysInMonth;
                 bsMonth++;
 
-                if (bsMonth > 12) {
+                if (bsMonth > 12) { // Adjusted condition
                     bsMonth = 1;
                     bsYear++;
                 }
             } else {
                 bsDay += totalDays;
-                if (bsDay > daysInMonth) {
+                if (bsDay > daysInMonth) { // Prevent overflow
                     bsDay = daysInMonth;
                 }
                 totalDays = 0;
@@ -147,16 +146,15 @@ public class NepaliDate {
         return bsYear + "-" + String.format("%02d", bsMonth) + "-" + String.format("%02d", bsDay);
     }
 
-    public String getNepaliDate(java.sql.Date sqlDate) {
+    public static String getNepaliDate(java.sql.Date sqlDate) throws Exception {
         return getNepaliDate(sqlDate.toLocalDate());
     }
 
-    public String getNepaliDate(String dateStr) {
+    public static String getNepaliDate(String dateStr) throws Exception {
         try {
             return getNepaliDate(LocalDate.parse(dateStr, DateTimeFormatter.ISO_LOCAL_DATE));
         } catch (DateTimeParseException e) {
-            System.err.println("Invalid date format: " + dateStr);
-            return null;
+            throw new Exception("Invalid date format: " + dateStr);
         }
     }
 
