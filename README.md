@@ -3,8 +3,8 @@
 Nepali date converter written in base java
 
 For now,
-converts English date into Nepali date, from 1943 to 2043 AD
-Nepali date to english date, from 2000 to 2099 BS
+converts English date into Nepali date, from 1918 to 2043 AD
+Nepali date to english date, from 1975 to 2099 BS
 And number of days between dates
 
 ## Usage

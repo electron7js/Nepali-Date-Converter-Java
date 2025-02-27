@@ -1,19 +1,19 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>com.electron7</groupId>
-  <artifactId>NepaliDateConverterJava</artifactId>
+  <groupId>com.electron7js</groupId>
+  <artifactId>nepalidateconverterjava</artifactId>
   <packaging>jar</packaging>
-  <version>1.0.1</version>
-  <name>NepaliDateConverterJava</name>
+  <version>1.0.5</version>
+  <name>nepalidateconverterjava</name>
   <description>Nepali Date Converter written in base Java</description>
 
   <properties>
-   <github.url>https://maven.pkg.github.com/electron7js/NepaliDateConverterJava</github.url>      
-   <github.connection>scm:git:https://github.com/electron7js/NepaliDateConverterJava.git</github.connection>
+   <github.url>https://maven.pkg.github.com/electron7js/Nepali-Date-Converter-Java</github.url>      
+   <github.connection>scm:git:https://github.com/electron7js/Nepali-Date-Converter-Java.git</github.connection>
 </properties>
 
-  <url>https://github.com/electron7js/NepaliDateConverterJava</url>
+  <url>https://github.com/electron7js/Nepali-Date-Converter-Java</url>
 <scm>
     <url>${github.connection}</url>
     <connection>${github.connection}</connection>
@@ -26,6 +26,7 @@
       <artifactId>junit</artifactId>
       <version>3.8.1</version>
       <scope>test</scope>
+
     </dependency>
   </dependencies>
     <developers>
@@ -39,9 +40,10 @@
     <distributionManagement>
     <repository>
         <id>github</id>
-        <name>GitHub Electron7 Apache Maven Packages</name>
-<url>https://maven.pkg.github.com/electron7js/NepaliDateConverterJava</url>
+        <name>GitHub Electron7js Apache Maven Packages</name>
+<url>https://maven.pkg.github.com/electron7js/Nepali-Date-Converter-Java</url>
     </repository>
+
 
   </distributionManagement>
 </project>
