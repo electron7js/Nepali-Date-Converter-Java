@@ -32,7 +32,8 @@
     <distributionManagement>
     <repository>
         <id>github</id>
-        <url>https://maven.pkg.github.com/electron7js/Nepali-Date-Converter-Java</url>
+        <name>GitHub Electron7 Apache Maven Packages</name>
+<url>https://maven.pkg.github.com/electron7js/nepali-date-converter-java</url>
     </repository>
 </distributionManagement>
 </project>
