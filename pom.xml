@@ -4,7 +4,7 @@
   <groupId>com.electron7js</groupId>
   <artifactId>nepalidateconverterjava</artifactId>
   <packaging>jar</packaging>
-  <version>1.0.5</version>
+  <version>1.0.7</version>
   <name>nepalidateconverterjava</name>
   <description>Nepali Date Converter written in base Java</description>
 

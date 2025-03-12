@@ -196,7 +196,6 @@ public class NepaliDate {
         while ((tempYear != year2) || (tempMonth != month2) || (tempDay != day2)) {
             if (tempYear != year2 || tempMonth != month2) {
                 totalDays += nepaliYearMonths.get(tempYear)[tempMonth - 1];
-
                 tempMonth++;
 
                 if (tempMonth > 12) {
@@ -218,9 +217,9 @@ public class NepaliDate {
     }
 
     public static Date getEnglishDate(Integer year, Integer month, Integer day) {
-        Integer totalDays = getDaysBetween(2000, 01, 01, year, month, day);
+        Integer totalDays = getDaysBetween(1975, 01, 01, year, month, day);
 
-        Long totalMilliseconds = totalDays * 86400000L - 843177600000L;
+        Long totalMilliseconds = totalDays * 86400000L - 1632202876000L;
 
         return new Date(totalMilliseconds);
     }
