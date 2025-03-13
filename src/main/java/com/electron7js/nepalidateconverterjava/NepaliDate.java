@@ -144,7 +144,7 @@ public class NepaliDate {
 
     public static String getNepaliDate(LocalDate englishDate) throws Exception {
         if (englishDate.isBefore(ENGLISH_START_DATE)) {
-            throw new Exception("Only dates after 1943-04-14 are supported");
+            throw new Exception("Only dates after 1918-04-14 are supported");
         }
         long totalDays = ChronoUnit.DAYS.between(ENGLISH_START_DATE, englishDate);
         int bsYear = 1975;
@@ -216,11 +216,13 @@ public class NepaliDate {
         return totalDays;
     }
 
-    public static Date getEnglishDate(Integer year, Integer month, Integer day) {
+    public static Date getEnglishDate(Integer year, Integer month, Integer day) throws Exception {
+        if(year <1975 || year >2099){
+            throw new Exception("Only dates after 1975-01-01 and upto 2100-12-30 are supported");
+        }
+
         Integer totalDays = getDaysBetween(1975, 01, 01, year, month, day);
-
-        Long totalMilliseconds = totalDays * 86400000L - 1632202876000L;
-
+        long totalMilliseconds = totalDays * 86400000L - 1632182176000L;
         return new Date(totalMilliseconds);
     }
 
